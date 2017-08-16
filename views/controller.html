@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="maximum-scale=1, user-scalable=0">
+
+    <title>Control sound volume</title>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            font-family: sans-serif;
+            background-color: #3D3C3A;
+        }
+
+        .content {
+            padding-top: 15%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            height: 30%;
+            width: 100%;
+        }
+
+        .card {
+            height: 250px;
+            width: 300px;
+            background-color: #cecece;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .card:hover {
+            opacity: 0.8;
+        }
+
+        #buttonDown {
+            background-image: url('img/icon_down.png');
+        }
+
+        #buttonMute {
+            background-image: url('img/icon_mute.png');
+        }
+
+        #buttonUp {
+            background-image: url('img/icon_up.png');
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content">
+        <div id="buttonDown" title="decrease sound volume" class="card"></div>
+        <div id="buttonMute" title="mute sound" class="card"></div>
+        <div id="buttonUp" title="increase sound volume" class="card"></div>
+    </div>
+
+    <script type="text/javascript">
+        let sendCommand = (command) => {
+            fetch(`../control/${command}`)
+                .then(result => {
+                    //console.log(result);
+
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        };
+
+        document.getElementById('buttonMute').onclick = (event) => {
+            sendCommand(0);
+            event.target.blur();
+        }
+        document.getElementById('buttonUp').onclick = (event) => { sendCommand(2); }
+        document.getElementById('buttonDown').onclick = (event) => { sendCommand(1); }
+    </script>
+</body>
+
+</html>
